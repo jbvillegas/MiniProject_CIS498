@@ -9,20 +9,22 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!username || !pwd) {
-      alert("Please fill in both username and password to continue");
-      return;
-    }
-
-    if (username && pwd) {
-      setLogStatus(true);
-    } else {
-      alert("Login unsuccessful, please check your credentials");
-    }
-
     if (logStatus) {
-      console.log("Logged In");
+      alert("You are already in!");
+      console.log("You are already in!");
       return;
+    } else {
+      if (!username || !pwd) {
+        alert("Please fill in both username and password to continue");
+        return;
+      }
+
+      if (username && pwd) {
+        setLogStatus(true);
+        alert("Login successful!");
+      } else {
+        alert("Login unsuccessful, please check your credentials");
+      }
     }
   };
 
