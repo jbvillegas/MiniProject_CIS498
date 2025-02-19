@@ -6,30 +6,24 @@ const Login = () => {
   const [pwd, setPwd] = useState("");
   const { logStatus, setLogStatus } = useContext(DataContext);
 
-  const handleSubmit = (e) => {
+  const handleLogIn = (e) => {
     e.preventDefault();
 
-    if (logStatus) {
-      alert("You are already in!");
-      console.log("You are already in!");
+    if (!username || !pwd) {
+      alert("Please fill in both username and password to continue");
       return;
-    } else {
-      if (!username || !pwd) {
-        alert("Please fill in both username and password to continue");
-        return;
-      }
+    }
 
-      if (username && pwd) {
-        setLogStatus(true);
-        alert("Login successful!");
-      } else {
-        alert("Login unsuccessful, please check your credentials");
-      }
+    if (username && pwd) {
+      setLogStatus(true);
+      alert("Login successful!");
+    } else {
+      alert("Login unsuccessful, please check your credentials");
     }
   };
 
   const logIn = (
-    <form onSubmit={handleSubmit} className="max-w-sm space-y-4">
+    <form onSubmit={handleLogIn} className="max-w-sm space-y-4">
       <div>
         <label htmlFor="username" className="block text-sm font-semibold mb-1">
           Enter your username
@@ -66,9 +60,17 @@ const Login = () => {
   );
 
   const logOut = (
-    <h3 className="text-xl font-semibold mb-2">
-      Welcome {username}, you are logged in!
-    </h3>
+    <div>
+      <h3 className="text-xl font-semibold mb-2">
+        Hello {username}, you are logged in!
+      </h3>
+      <button
+        className="w-full bg-neutral-500 hover:bg-neutral-700 font-bold rounded py-2 px-3 hover:cursor-pointer transition-colors duration-300"
+        onClick={() => setLogStatus(false)}
+      >
+        Log Out
+      </button>
+    </div>
   );
 
   return (
