@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useContext } from "react";
 import { DataContext } from "../App";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const navigate = useNavigate();
   const { logStatus, setLogStatus } = useContext(DataContext);
 
   const [firstName, setFirstName] = useState("");
@@ -103,6 +105,8 @@ const Register = () => {
     setZipCode("");
     setUsername("");
     setPassword("");
+
+    navigate("/login");
   };
 
   const logOut = (
