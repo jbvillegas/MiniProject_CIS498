@@ -1,8 +1,9 @@
-# React + Vite
+## CIS 498 MINI-PROJECT
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a project for CIS 498 class. It aims to create a simple React website. The project is made with Vite and uses Tailwind for styling
 
-Currently, two official plugins are available:
+### Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Simple Login Form to validate an existing user
+- Simple Register Form to create a new user
+- Uses `createContext` and `useContext` to handle the global state of login/logout

@@ -9,6 +9,9 @@ const Login = () => {
   const handleLogIn = (e) => {
     e.preventDefault();
 
+    setUsername(username.trim());
+    setPwd(pwd.trim());
+
     if (!username || !pwd) {
       alert("Please fill in both username and password to continue");
       return;
