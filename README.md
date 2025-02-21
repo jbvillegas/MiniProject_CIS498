@@ -6,4 +6,12 @@ This is a project for CIS 498 class. It aims to create a simple React website. T
 
 - Simple Login Form to validate an existing user
 - Simple Register Form to create a new user
-- Uses `createContext` and `useContext` to handle the global state of login/logout
+- Uses `createContext()` and `useContext()` hooks to handle the global state of login/logout
+- Uses `react-router-dom` to handle routing
+- The project is deployed on Vercel
+
+### How to run the project
+- Clone the project
+- Run `npm install`
+- Run `npm run dev`
+
