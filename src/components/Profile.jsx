@@ -2,16 +2,16 @@ import React, { useContext, useState, useEffect } from "react";
 import { DataContext } from "../App";
 
 const Profile = () => {
-  const { userProfile, setUserProfile } = useContext(DataContext);
+  const { userProfile, setProfile } = useContext(DataContext);
   const [editMode, setEditMode] = useState(false);
-  const [editedProfile, setEditedProfile] = useState(userProfile || {});
+  const [editedProfile, setChangedProfile] = useState(userProfile || {});
 
   const inputChange = (field, value) => {
-    setEditedProfile({ ...editedProfile, [field]: value });
+    setChangedProfile({ ...editedProfile, [field]: value });
   };
 
   const inputSave = () => {
-    setUserProfile(editedProfile);
+    setProfile(editedProfile);
     setEditMode(false);
   };
 
@@ -22,7 +22,7 @@ const Profile = () => {
   const isZipCodeValid = (zipCode) => !isNaN(zipCode);
 
   useEffect(() => {
-    setEditedProfile(userProfile || {});
+    setChangedProfile(userProfile || {});
   }, [userProfile]);
 
   return (
@@ -48,7 +48,7 @@ const Profile = () => {
           ))}
 
           <button
-            className="bg-teal-500 text-black-50 px-6 py-3 rounded-lg w-full mt-4 hover:bg-teal-400"
+            className="bg-teal-500 text-white font-bold px-6 py-3 rounded-lg w-full mt-4 hover:bg-teal-400"
             onClick={inputSave}
             disabled={!checkEmail(editedProfile?.email) || !isZipCodeValid(editedProfile?.zipCode)}
           >
