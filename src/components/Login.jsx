@@ -5,25 +5,36 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [pwd, setPwd] = useState("");
-  const { logStatus, setLogStatus, userProfile } = useContext(DataContext);
+  const { logStatus, setLogStatus, setUserProfile } = useContext(DataContext);
   const navigate = useNavigate();
 
   const handleLogIn = (e) => {
     e.preventDefault();
 
-    if (username.trim() === userProfile?.username && pwd.trim()) {
+    if (!username.trim() || !pwd.trim()) {
+      alert("Please fill in both the username and password fields.");
+      return;
+    }
+
+    
+    const storedUserProfile = JSON.parse(localStorage.getItem("userProfile"));
+
+    if (
+      storedUserProfile &&
+      storedUserProfile.username === username.trim() &&
+      storedUserProfile.password === pwd.trim()
+    ) {
+      setUserProfile(storedUserProfile); 
       setLogStatus(true);
       alert("Login successful!");
-      navigate("/profile"); 
+      navigate("/profile");
     } else {
-      alert("Login unsuccessful, please check your credentials");
+      alert("Login unsuccessful, please check your credentials.");
     }
   };
 
   return (
-    
     <div className="p-4 flex flex-col items-center">
-      
       <h2 className="text-3xl font-bold mb-6 text-center text-teal-500">Login Form</h2>
       {!logStatus ? (
         <form onSubmit={handleLogIn} className="max-w-sm space-y-4">
@@ -56,7 +67,7 @@ const Login = () => {
       ) : (
         <div>
           <h3 className="text-xl font-semibold mb-2">
-            Hello {userProfile?.username}, you are logged in!
+            Hello, you are logged in!
           </h3>
           <button
             className="w-full bg-teal-500 text-white py-3 rounded-lg font-bold hover:bg-teal-400 transition duration-300"

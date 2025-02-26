@@ -86,13 +86,16 @@ const Register = () => {
       city,
       zipCode,
       username,
-      password: "Not shown for security",
+      password,  
     };
 
-    setUserProfile(formData);
-    setLogStatus(true); 
+    
+    localStorage.setItem("userProfile", JSON.stringify(formData));
 
-    alert(`Registration successful \nCollected data:\n${JSON.stringify(formData)}`);
+    setUserProfile(formData);
+    setLogStatus(true);
+
+    alert(`Registration successful`);
 
     setFirstName("");
     setLastName("");
@@ -113,7 +116,10 @@ const Register = () => {
       </h3>
       <button
         className="w-full bg-black-500 hover:bg-black-400 font-bold rounded py-2 px-3 hover:cursor-pointer transition-colors duration-300 text-black-50"
-        onClick={() => setLogStatus(false)}
+        onClick={() => {
+          setLogStatus(false);
+          localStorage.removeItem("userProfile"); 
+        }}
       >
         Log Out
       </button>

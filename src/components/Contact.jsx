@@ -51,10 +51,10 @@ const Contact = () => {
           Alternatively, you can reach me at:
         </p>
         <ul className="list-none mt-2">
-          <li><strong>Email:</strong> amari.dev@example.com</li>
+          <li><strong>Email:</strong> Guest.dev@example.com</li>
           <li><strong>Phone:</strong> +1 (123) 456-7890</li>
-          <li><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/amari" className="text-teal-500 hover:text-teal-400">linkedin.com/in/amari</a></li>
-          <li><strong>GitHub:</strong> <a href="https://github.com/amari" className="text-teal-500 hover:text-teal-400">github.com/amari</a></li>
+          <li><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/Guest" className="text-teal-500 hover:text-teal-400">linkedin.com/in/Guest</a></li>
+          <li><strong>GitHub:</strong> <a href="https://github.com/Guest" className="text-teal-500 hover:text-teal-400">github.com/Guest</a></li>
         </ul>
       </div>
 
