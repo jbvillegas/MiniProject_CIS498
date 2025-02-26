@@ -1,11 +1,10 @@
-import { useState } from "react";
-import { useContext } from "react";
-import { DataContext } from "../App";
+import { useState, useContext } from "react";
+import { DataContext } from "../App"; 
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const navigate = useNavigate();
-  const { logStatus, setLogStatus } = useContext(DataContext);
+  const { logStatus, setLogStatus, setUserProfile } = useContext(DataContext);
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -33,6 +32,7 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // Input validation
     if (isFirstNameInvalid) {
       alert("First Name must not contain numbers.");
       return;
@@ -49,9 +49,7 @@ const Register = () => {
     }
 
     if (isEmailInvalid) {
-      alert(
-        "Email must contain both @ and . symbols, with @ appearing before ."
-      );
+      alert("Email must contain both @ and . symbols, with @ appearing before .");
       return;
     }
 
@@ -76,9 +74,7 @@ const Register = () => {
     }
 
     if (isPasswordContentInvalid) {
-      alert(
-        "Password must contain at least one uppercase, one lowercase letter, and one digit."
-      );
+      alert("Password must contain at least one uppercase, one lowercase letter, and one digit.");
       return;
     }
 
@@ -93,9 +89,10 @@ const Register = () => {
       password: "Not shown for security",
     };
 
-    alert(
-      `Registration successful \nCollected data:\n${JSON.stringify(formData)}`
-    );
+    setUserProfile(formData);
+    setLogStatus(true); 
+
+    alert(`Registration successful \nCollected data:\n${JSON.stringify(formData)}`);
 
     setFirstName("");
     setLastName("");
@@ -111,11 +108,11 @@ const Register = () => {
 
   const logOut = (
     <div>
-      <h3 className="text-xl font-semibold mb-2">
+      <h3 className="text-xl font-semibold mb-2 text-black-50">
         Hello {username}, you are logged in!
       </h3>
       <button
-        className="w-full bg-neutral-500 hover:bg-neutral-700 font-bold rounded py-2 px-3 hover:cursor-pointer transition-colors duration-300"
+        className="w-full bg-black-500 hover:bg-black-400 font-bold rounded py-2 px-3 hover:cursor-pointer transition-colors duration-300 text-black-50"
         onClick={() => setLogStatus(false)}
       >
         Log Out
@@ -124,132 +121,111 @@ const Register = () => {
   );
 
   return (
-    <div className="p-4 flex flex-col items-center">
-      <h2 className="text-2xl font-bold mb-4">Registration Form</h2>
+    <div className="p-4 flex flex-col items-center bg-black-900 text-black-50">
+      <h2 className="text-3xl font-bold mb-6 text-center text-teal-500">Registration Form</h2>
       {logStatus ? (
         logOut
       ) : (
-        <form
-          onSubmit={handleSubmit}
-          className="max-w-sm items-center space-y-4"
-        >
+        <form onSubmit={handleSubmit} className="max-w-sm items-center space-y-4">
           <div className="mb-4">
-            <label
-              htmlFor="firstName"
-              className="block text-sm font-semibold mb-1"
-            >
+            <label htmlFor="firstName" className="block text-sm font-semibold mb-1 text-black-50">
               Enter your first name
             </label>
             <input
               type="text"
               id="firstName"
-              className="shadow rounded border border-neutral-300 py-2 px-3 focus:outline-none"
+              className="shadow rounded border border-black-300 py-2 px-3 focus:outline-none"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
             />
           </div>
           <div className="mb-4">
-            <label
-              htmlFor="lastName"
-              className="block text-sm font-semibold mb-1"
-            >
+            <label htmlFor="lastName" className="block text-sm font-semibold mb-1 text-black-50">
               Enter your last name
             </label>
             <input
               type="text"
               id="lastName"
-              className="shadow rounded border border-neutral-300 py-2 px-3 focus:outline-none"
+              className="shadow rounded border border-black-300 py-2 px-3 focus:outline-none"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
             />
           </div>
           <div className="mb-4">
-            <label
-              htmlFor="lastName"
-              className="block text-sm font-semibold mb-1"
-            >
+            <label htmlFor="id" className="block text-sm font-semibold mb-1 text-black-50">
               Enter your ID
             </label>
             <input
               type="text"
               id="id"
-              className="shadow rounded border border-neutral-300 py-2 px-3 focus:outline-none"
+              className="shadow rounded border border-black-300 py-2 px-3 focus:outline-none"
               value={id}
               onChange={(e) => setId(e.target.value)}
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="email" className="block text-sm font-semibold mb-1">
+            <label htmlFor="email" className="block text-sm font-semibold mb-1 text-black-50">
               Enter your email
             </label>
             <input
               type="text"
               id="email"
-              className="shadow rounded border border-neutral-300 py-2 px-3 focus:outline-none"
+              className="shadow rounded border border-black-300 py-2 px-3 focus:outline-none"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="city" className="block text-sm font-semibold mb-1">
+            <label htmlFor="city" className="block text-sm font-semibold mb-1 text-black-50">
               Enter your city
             </label>
             <input
               type="text"
               id="city"
-              className="shadow rounded border border-neutral-300 py-2 px-3 focus:outline-none"
+              className="shadow rounded border border-black-300 py-2 px-3 focus:outline-none"
               value={city}
               onChange={(e) => setCity(e.target.value)}
             />
           </div>
           <div className="mb-4">
-            <label
-              htmlFor="zipCode"
-              className="block text-sm font-semibold mb-1"
-            >
+            <label htmlFor="zipCode" className="block text-sm font-semibold mb-1 text-black-50">
               Enter your zip code
             </label>
             <input
               type="text"
               id="zipCode"
-              className="shadow rounded border border-neutral-300 py-2 px-3 focus:outline-none"
+              className="shadow rounded border border-black-300 py-2 px-3 focus:outline-none"
               value={zipCode}
               onChange={(e) => setZipCode(e.target.value)}
             />
           </div>
           <div className="mb-4">
-            <label
-              htmlFor="username"
-              className="block text-sm font-semibold mb-1"
-            >
+            <label htmlFor="username" className="block text-sm font-semibold mb-1 text-black-50">
               Enter your username
             </label>
             <input
               type="text"
               id="username"
-              className="shadow rounded border border-neutral-300 py-2 px-3 focus:outline-none"
+              className="shadow rounded border border-black-300 py-2 px-3 focus:outline-none"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
           </div>
           <div className="mb-4">
-            <label
-              htmlFor="password"
-              className="block text-sm font-semibold mb-1"
-            >
+            <label htmlFor="password" className="block text-sm font-semibold mb-1 text-black-50">
               Enter your password
             </label>
             <input
               type="password"
               id="password"
-              className="shadow rounded border border-neutral-300 py-2 px-3 focus:outline-none"
+              className="shadow rounded border border-black-300 py-2 px-3 focus:outline-none"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <div className="">
+          <div className="mb-4">
             <button
-              className="bg-neutral-500 hover:bg-neutral-700 text-white font-semibold mb-1 rounded w-full py-2 px-3 hover:cursor-pointer"
+              className="w-full bg-teal-500 text-white py-3 rounded-lg font-bold hover:bg-teal-400 transition duration-300"
               type="submit"
             >
               Register

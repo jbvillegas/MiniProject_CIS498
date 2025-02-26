@@ -1,29 +1,39 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./components/NavBar";
-import Home from "./components/Home";
-import Login from "./components/Login";
-import Register from "./components/Register";
-import { createContext, useState } from "react";
+import React, { useState } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-export const DataContext = createContext("");
+export const DataContext = React.createContext();
+
+import Register from "./components/Register";
+import Login from "./components/Login";
+import AboutMe from "./components/AboutMe";
+import Home from "./components/Home"; 
+import Profile from "./components/Profile"; 
+import NavBar from "./components/NavBar";
+import Contact from "./components/Contact";
+import Projects from "./components/Projects";
+
 
 function App() {
-  const [logStatus, setLogStatus] = useState(0);
-  return (
-    <div className="min-h-screen min-w-screen bg-gradient-to-b from-neutral-700  via-neutral-800 to-neutral-900 text-white">
-      <DataContext.Provider value={{ logStatus, setLogStatus }}>
-        <Router>
-          <Navbar />
-          <Routes>
-            <Route path="/*" element={<Home />} />
+  const [logStatus, setLogStatus] = useState(false);
+  const [userProfile, setUserProfile] = useState(null); 
 
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-          </Routes>
-        </Router>
-      </DataContext.Provider>
-    </div>
+  return (
+    <DataContext.Provider value={{ logStatus, setLogStatus, userProfile, setUserProfile }}>
+      <Router>
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} /> 
+          <Route path="/navbar" element={<NavBar />} /> 
+          <Route path="/login" element={<Login />} />
+          <Route path="/about" element={<AboutMe />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/profile" element={<Profile />} /> 
+        </Routes>
+      </Router>
+    </DataContext.Provider>
   );
 }
 

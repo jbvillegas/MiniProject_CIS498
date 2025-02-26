@@ -1,85 +1,71 @@
 import { useState, useContext } from "react";
 import { DataContext } from "../App";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [pwd, setPwd] = useState("");
-  const { logStatus, setLogStatus } = useContext(DataContext);
+  const { logStatus, setLogStatus, userProfile } = useContext(DataContext);
+  const navigate = useNavigate();
 
   const handleLogIn = (e) => {
     e.preventDefault();
 
-    setUsername(username.trim());
-    setPwd(pwd.trim());
-
-    if (!username || !pwd) {
-      alert("Please fill in both username and password to continue");
-      return;
-    }
-
-    if (username && pwd) {
+    if (username.trim() === userProfile?.username && pwd.trim()) {
       setLogStatus(true);
       alert("Login successful!");
+      navigate("/profile"); 
     } else {
       alert("Login unsuccessful, please check your credentials");
     }
   };
 
-  const logIn = (
-    <form onSubmit={handleLogIn} className="max-w-sm space-y-4">
-      <div>
-        <label htmlFor="username" className="block text-sm font-semibold mb-1">
-          Enter your username
-        </label>
-        <input
-          type="text"
-          id="username"
-          className="shadow rounded border border-neutral-300 py-2 px-3 focus:outline-none"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="pwd" className="block text-sm font-semibold">
-          Enter your password
-        </label>
-        <input
-          type="password"
-          id="pwd"
-          className="shadow rounded border border-neutral-300 py-2 px-3 focus:outline-none"
-          value={pwd}
-          onChange={(e) => setPwd(e.target.value)}
-        />
-      </div>
-      <div className="">
-        <button
-          className="w-full bg-neutral-500 hover:bg-neutral-700 font-bold rounded py-2 px-3 hover:cursor-pointer transition-colors duration-300"
-          type="submit"
-        >
-          Log In
-        </button>
-      </div>
-    </form>
-  );
-
-  const logOut = (
-    <div>
-      <h3 className="text-xl font-semibold mb-2">
-        Hello {username}, you are logged in!
-      </h3>
-      <button
-        className="w-full bg-neutral-500 hover:bg-neutral-700 font-bold rounded py-2 px-3 hover:cursor-pointer transition-colors duration-300"
-        onClick={() => setLogStatus(false)}
-      >
-        Log Out
-      </button>
-    </div>
-  );
-
   return (
+    
     <div className="p-4 flex flex-col items-center">
-      <h2 className="text-2xl font-bold mb-4">Login Form</h2>
-      {logStatus ? logOut : logIn}
+      
+      <h2 className="text-3xl font-bold mb-6 text-center text-teal-500">Login Form</h2>
+      {!logStatus ? (
+        <form onSubmit={handleLogIn} className="max-w-sm space-y-4">
+          <div>
+            <label htmlFor="username" className="block text-sm font-semibold mb-1">
+              Enter your username
+            </label>
+            <input
+              type="text"
+              id="username"
+              className="shadow rounded border border-neutral-300 py-2 px-3 focus:outline-none"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="pwd" className="block text-sm font-semibold">Enter your password</label>
+            <input
+              type="password"
+              id="pwd"
+              className="shadow rounded border border-neutral-300 py-2 px-3 focus:outline-none"
+              value={pwd}
+              onChange={(e) => setPwd(e.target.value)}
+            />
+          </div>
+          <button className="w-full bg-teal-500 text-white py-3 rounded-lg font-bold hover:bg-teal-400 transition duration-300" type="submit">
+            Log In
+          </button>
+        </form>
+      ) : (
+        <div>
+          <h3 className="text-xl font-semibold mb-2">
+            Hello {userProfile?.username}, you are logged in!
+          </h3>
+          <button
+            className="w-full bg-teal-500 text-white py-3 rounded-lg font-bold hover:bg-teal-400 transition duration-300"
+            onClick={() => setLogStatus(false)}
+          >
+            Log Out
+          </button>
+        </div>
+      )}
     </div>
   );
 };
