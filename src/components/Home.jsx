@@ -61,7 +61,6 @@ export default function Home() {
             </ul>
           </div>
 
-          
           <div className="w-1/2 p-4">
             {hoveredItem ? (
               <div>

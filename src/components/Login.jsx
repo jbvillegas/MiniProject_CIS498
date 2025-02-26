@@ -15,7 +15,6 @@ const Login = () => {
       alert("Please fill in both the username and password fields.");
       return;
     }
-
     
     const storedUserProfile = JSON.parse(localStorage.getItem("userProfile"));
 

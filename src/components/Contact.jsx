@@ -121,9 +121,7 @@ const Contact = () => {
 </li>
 
 <button
-  onClick={saveUserInfo
-
-  }
+  onClick={saveUserInfo}
   className="bg-teal-500 text-white hover:bg-teal-400 font-bold rounded py-2 px-6 text-center mt-4"
 >
   Save Contact Info
