@@ -15,3 +15,7 @@ This is a project for CIS 498 class. It aims to create a simple React website. T
 - Run `npm install`
 - Run `npm run dev`
 
+### Future features
+- Modifying the projects tab when logged in.
+- Modifying the Home tab when logged in. 
+- Further profile modifications.
