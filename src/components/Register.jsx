@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import { DataContext } from "../App"; 
 import { useNavigate } from "react-router-dom";
+import { registerUser } from "../services/api";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ const Register = () => {
   const isPasswordContentInvalid =
     !/[A-Z]/.test(password) || !/[a-z]/.test(password) || !/\d/.test(password);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Input validation
@@ -89,24 +90,42 @@ const Register = () => {
       password,  
     };
 
-    
-    localStorage.setItem("userProfile", JSON.stringify(formData));
-
-    setUserProfile(formData);
-    setLogStatus(true);
-
-    alert(`Registration successful`);
-
-    setFirstName("");
-    setLastName("");
-    setId("");
-    setEmail("");
-    setCity("");
-    setZipCode("");
-    setUsername("");
-    setPassword("");
-
-    navigate("/login");
+    try {
+      const response = await registerUser(formData);
+      // With axios, successful responses come here directly
+      alert("Registration successful");
+      
+      // Update state with new user data
+      setUserProfile(response.data.user);
+      setLogStatus(true);
+      localStorage.setItem("userProfile", JSON.stringify(response.data.user));
+      
+      // Clear form fields
+      setFirstName("");
+      setLastName("");
+      setId("");
+      setEmail("");
+      setCity("");
+      setZipCode("");
+      setUsername("");
+      setPassword("");
+      
+      navigate("/login");
+    } catch (error) {
+      console.error("Error during registration:", error);
+      // More detailed error handling
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        alert(error.response.data.error || "Registration failed");
+      } else if (error.request) {
+        // The request was made but no response was received
+        alert("No response from server. Please try again.");
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        alert("Error: " + error.message);
+      }
+    }
   };
 
   const logOut = (
