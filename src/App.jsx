@@ -15,9 +15,13 @@ import Projects from "./components/Projects";
 function App() {
   const [logStatus, setLogStatus] = useState(false);
   const [userProfile, setUserProfile] = useState(null);
-
+  const [user, setUser] = useState(() => {
+    const storedUser = localStorage.getItem('user');
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
+  
   return (
-    <DataContext.Provider value={{ logStatus, setLogStatus, userProfile, setUserProfile }}>
+    <DataContext.Provider value={{user, setUser, logStatus, setLogStatus, userProfile, setUserProfile }}>
       <Router>
         <NavBar /> 
         <Routes>
@@ -34,5 +38,7 @@ function App() {
     </DataContext.Provider>
   );
 }
+
+
 
 export default App;
