@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { DataContext } from "../App";
+import { Link } from "react-router-dom";
 
 const Profile = () => {
   const { userProfile, setProfile } = useContext(DataContext);
@@ -27,7 +28,14 @@ const Profile = () => {
 
   return (
     <div className="p-6 bg-black-900 text-black-50 mt-5">
-      <h2 className="text-3xl font-bold mb-6 text-center text-teal-500">Your Profile</h2>
+      <h2 className="text-3xl font-bold mb-6 text-center text-teal-500">YOUR PROFILE</h2>
+      <p className="text-xl text-center font-bold text-gray-700 mb-4">
+  YOU ARE NOW LOGGED IN AS {userProfile?.username || "Guest"}. YOU MAY EDIT YOUR INFORMATION AS YOU LIKE.
+</p>
+<p className="text-lg text-center text-gray-500 mb-4">
+  Note: some of these features may still be in the development stage.<br/>
+  If you have any questions or concerns, please <Link to="/contact" className="text-blue-500 hover:text-blue-700">contact us</Link>.
+</p>
 
       {editMode ? (
         <div className="space-y-6">

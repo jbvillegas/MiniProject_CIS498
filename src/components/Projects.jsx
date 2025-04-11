@@ -3,7 +3,7 @@ import React from 'react';
 const Projects = () => {
   return (
     <div className="p-6">
-      <h2 className="text-3xl font-bold mb-6 text-center text-teal-500">Projects</h2>
+      <h2 className="text-3xl font-bold mb-6 text-center text-teal-500">PROJECTS</h2>
       
       {/* P1 */}
       <div className="bg-white shadow-lg rounded-lg p-6 mb-6">

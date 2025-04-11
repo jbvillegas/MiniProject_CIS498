@@ -113,16 +113,11 @@ const Register = () => {
       navigate("/login");
     } catch (error) {
       console.error("Error during registration:", error);
-      // More detailed error handling
       if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
         alert(error.response.data.error || "Registration failed");
       } else if (error.request) {
-        // The request was made but no response was received
         alert("No response from server. Please try again.");
       } else {
-        // Something happened in setting up the request that triggered an Error
         alert("Error: " + error.message);
       }
     }

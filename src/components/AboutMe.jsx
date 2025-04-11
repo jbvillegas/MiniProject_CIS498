@@ -70,7 +70,7 @@ In the future, I aim to:
 
   return (
     <div className="p-6">
-      <h2 className="text-3xl font-bold mb-6 text-center text-teal-500">About Me</h2>
+      <h2 className="text-3xl font-bold mb-6 text-center text-teal-500">ABOUT ME</h2>
 
       {isEditing ? (
         <textarea

@@ -18,6 +18,12 @@ const Home = () => {
     created_at: ''
   });
 
+  const isAdmin = user?.role_id === 1;
+   useEffect(() => {
+    console.log("User from context:", user);
+  }, [user]); 
+  
+
   // Fetch all categories on mount
   useEffect(() => {
     const loadData = async () => {
@@ -220,16 +226,16 @@ const Home = () => {
             
             <h2 className="text-xl font-bold text-teal-400">CATEGORIES</h2>
             
-              <button 
-              className= "px-3 py-1 bg-green-500 text-white font-bold rounded hover:bg-green-700 transition-colors flex items-center gap-1"
+            {isAdmin && (
+            <button
+              className="px-3 py-1 bg-green-500 text-white font-bold rounded hover:bg-green-700 transition-colors flex items-center gap-1"
               onClick={startCreating}
-              >
-  
+            >
               Add
             </button>
-            
-            
-            
+          )}
+
+
           </div>
           
           {isCreating && (
@@ -284,7 +290,7 @@ const Home = () => {
                 >
                   <div className="flex justify-between items-center">
                     <span className="text-xl font-xl font-semibold text-gray-800">{category.name}</span>
-                    {user?.role === "admin" && (
+                    {isAdmin && (
                       <div className="flex space-x-2">
                         <button 
                           onClick={(e) => {
@@ -361,7 +367,7 @@ const Home = () => {
             <div className="p-6">
               <div className="flex justify-between items-start mb-6">
                 <h2 className="text-2xl font-bold text-teal-400">{selectedCategory.name} Details</h2>
-                {true && (
+                {isAdmin && (
                   <div className="flex space-x-2">
                     <button 
                       onClick={() => startEditing(selectedCategory)}

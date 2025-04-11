@@ -9,7 +9,7 @@ const api = axios.create({
   timeout: 10000,
 });
 
-// Request interceptor for auth token
+// LOGIN CHECK
 api.interceptors.request.use(config => {
   const token = localStorage.getItem('authToken');
   if (token) {
@@ -18,7 +18,7 @@ api.interceptors.request.use(config => {
   return config;
 });
 
-// Response interceptor for error handling
+// ERROR CHECK
 api.interceptors.response.use(
   response => response,
   error => {
@@ -28,12 +28,16 @@ api.interceptors.response.use(
 );
 
 export const fetchProjects = () => api.get('/projects');
+/**************************CATEGORY*****************************/
 export const fetchCategories = () => api.get('/categories');
 export const createCategory = (data) => api.post('/categories', data);
 export const updateCategory = (id, category) => api.put(`/categories/${id}`, category);
-
 export const fetchCategoryDetails = (id) => api.get(`/categories/${id}`);
 export const deleteCategory = (id) => api.delete(`/categories/${id}`);
+/*******************************************************/
+
+/**************************LOGIN-ROLES*****************************/
 export const loginUser = (credentials) => api.post('/users/login', credentials);
 export const registerUser = (userData) => api.post('/users/register', userData);
 export const adminDeleteItem = (id) => api.delete(`/admin/items/${id}`);
+/*******************************************************************/
