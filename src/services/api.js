@@ -3,13 +3,12 @@ import axios from 'axios';
 const API_BASE_URL = import.meta.env.VITE_API_URL || 
                      import.meta.env.REACT_APP_API_URL || 
                      'http://localhost:3000/';
-
 const api = axios.create({
   baseURL: API_BASE_URL,
   timeout: 10000,
 });
 
-// LOGIN CHECK
+/**************************AUTHORIZE USER LOGIN*****************************/
 api.interceptors.request.use(config => {
   const token = localStorage.getItem('authToken');
   if (token) {
@@ -18,7 +17,7 @@ api.interceptors.request.use(config => {
   return config;
 });
 
-// ERROR CHECK
+/**************************ERROR CHECK*****************************/
 api.interceptors.response.use(
   response => response,
   error => {

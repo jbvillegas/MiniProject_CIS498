@@ -5,7 +5,7 @@ const AboutMe = () => {
   const { userProfile, setUserProfile } = useContext(DataContext);
   const isLoggedIn = userProfile?.username; 
 
-  {/* SAMPLE TEXT FOR USER GUIDANCE */}
+  /****************SAMPLE TEXT FOR USER GUIDANCE*********************/ 
   const defaultText = `
 Hello! My name is Guest, and I’m a **passionate and driven full-stack web developer** with a deep love for problem-solving and building user-centric applications.
 

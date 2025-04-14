@@ -18,13 +18,14 @@ const Home = () => {
     created_at: ''
   });
 
+  /***************ROLE CHECK*****************/ 
   const isAdmin = user?.role_id === 1;
    useEffect(() => {
     console.log("User from context:", user);
   }, [user]); 
   
 
-  // Fetch all categories on mount
+  /***************USEEFFECT CATEGORY*****************/
   useEffect(() => {
     const loadData = async () => {
       try {
@@ -43,8 +44,6 @@ const Home = () => {
           handleCategorySelect(categoriesData[0].id);
         }
       } catch (err) {
-        console.error("Fetch error:", err);
-        setError(err.message || "Failed to load categories");
         setCategories([]);
       } finally {
         setLoading(false);
@@ -54,7 +53,7 @@ const Home = () => {
     loadData();
   }, []);
 
-  // Handle category selection (click or hover)
+  /***************SELECT CATEGORY*****************/
   const handleCategorySelect = async (id) => {
     try {
       const response = await fetchCategoryDetails(id);
@@ -67,7 +66,7 @@ const Home = () => {
     }
   };
 
-  // Handle hover with delay to prevent flickering
+  /***************HOVER OVER CATEGORY*****************/
   const handleHover = (id) => {
     if (hoverTimeout) {
       clearTimeout(hoverTimeout);
@@ -80,7 +79,6 @@ const Home = () => {
     setHoverTimeout(timeout);
   };
 
-  // Cancel hover action if mouse leaves before timeout
   const cancelHover = () => {
     if (hoverTimeout) {
       clearTimeout(hoverTimeout);
@@ -88,7 +86,7 @@ const Home = () => {
     }
   };
 
-  // Handle form input changes
+  /***************UPDATE FORM CATEGORY DATA*****************/
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -97,9 +95,10 @@ const Home = () => {
     }));
   };
 
+  /***************CREATE CATEGORY DATA*****************/
   const handleCreate = async () => {
     try {
-      const slug = slugify(formData.name);
+      const slug = slugify(formData.name); 
   
       const payload = {
         ...formData,
@@ -117,7 +116,7 @@ const Home = () => {
     }
   };
   
-
+/***************CREATES THE SLUG FOR CATEGORY*****************/
   const slugify = (text) => 
     text
       .toString()
@@ -125,11 +124,12 @@ const Home = () => {
       .trim()
       .replace(/[\s\W-]+/g, '-');
   
+  /***************UPDATE CATEGORY DATA*****************/
   const handleUpdate = async () => {
     try {
       const updatedData = {
         ...formData,
-        slug: slugify(formData.name), // ✅ Auto-generate slug from name
+        slug: slugify(formData.name),
       };
   
       const response = await updateCategory(selectedCategory.id, updatedData);
@@ -146,7 +146,7 @@ const Home = () => {
   };
   
 
-  // Admin delete function
+  /***************ONLY ADMIN DELETES*****************/
   const handleDelete = async (id) => {
     if (!window.confirm("Delete this category permanently?")) return;
     
@@ -165,7 +165,7 @@ const Home = () => {
     }
   };
 
-  // Start editing a category
+  /***************EDIT CATEGORY*****************/
   const startEditing = (category) => {
     setIsEditing(true);
     setIsCreating(false);
@@ -175,38 +175,12 @@ const Home = () => {
     });
   };
 
-  // Start creating a new category
+  /***************CREATE CATEGORY*****************/
   const startCreating = () => {
     setIsCreating(true);
     setIsEditing(false);
     setFormData({ name: '', description: '' });
   };
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <div className="text-center">
-          <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
-          <p className="mt-4 text-lg font-medium text-gray-700">Loading categories...</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="max-w-md mx-auto mt-10 p-6 bg-red-50 rounded-lg shadow">
-        <h3 className="text-xl font-bold text-red-700 mb-2">Error Loading Data</h3>
-        <p className="text-red-600 mb-4">{error}</p>
-        <button 
-          onClick={() => window.location.reload()} 
-          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
-        >
-          Retry
-        </button>
-      </div>
-    );
-  }
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -217,10 +191,10 @@ const Home = () => {
   <p className="text-2xl text-gray-800 mb-6 leading-relaxed text-center max-w-8xl mx-auto font-medium">
     Welcome to <span className="font-bold text-teal-400">PORTFOLIO</span>, an online management system where you can explore other users' projects, showcase your own, and build connections to unlock new opportunities in the job market.
   </p>
-</div>
+  </div>
       
+      {/**********************************LEFT SIDE*************************************/}
       <div className="flex flex-col lg:flex-row gap-8">
-        {/* Left Column - Category List */}
         <div className="lg:w-1/3 bg-white rounded-xl shadow-md overflow-hidden">
           <div className="p-6 border-b border-gray-200 flex justify-between items-center">
             
@@ -238,6 +212,7 @@ const Home = () => {
 
           </div>
           
+          {/**********************************ADD CATEGORY*************************************/}
           {isCreating && (
             <div className="p-4 border-b border-gray-200">
               <input
@@ -274,6 +249,7 @@ const Home = () => {
             </div>
           )}
           
+          {/**********************************CATEGORY LIST*************************************/}
           {categories.length === 0 ? (
             <div className="p-6 text-gray-500">No categories available</div>
           ) : (
@@ -321,7 +297,7 @@ const Home = () => {
           )}
         </div>
 
-        {/* Right Column - Details */}
+        {/**********************************RIGHT SIDE*************************************/}
         <div className="lg:w-2/3 bg-white rounded-xl shadow-md overflow-hidden">
           {isEditing ? (
             <div className="p-6">
@@ -396,11 +372,6 @@ const Home = () => {
                   <div className="bg-gray-50 p-4 rounded-lg">
                     <h3 className="font-black text-lg text-gray-700 mb-2">Created Date</h3>
                     <p className="text-gray-600 text-lg">{new Date(selectedCategory.created_at).toLocaleDateString()}</p>
-                  </div>
-
-                  <div className="bg-gray-50 p-4 rounded-lg">
-                    <h3 className="font-black text-lg text-gray-700 mb-2">Project Count</h3>
-                    <p className="text-gray-600 text-lg">{selectedCategory.project_count || 0}</p>
                   </div>
                 </div>
               </div>

@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import { DataContext } from "../App";
 import { useNavigate } from "react-router-dom";
-import { loginUser } from "../services/api"; // Adjust the import path as necessary
+import { loginUser } from "../services/api";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -29,7 +29,7 @@ const Login = () => {
         password: password.trim() 
       });
   
-      // Success: Update state and redirect
+      /*************UPDATE GLOBAL STATE***********/
       setUser(response.data.user);
       setUserProfile(response.data.user);
       setLogStatus(true);
@@ -40,7 +40,6 @@ const Login = () => {
       
       navigate("/profile");
     } catch (error) {
-      // Unified error handling (like your registration example)
       console.error("Login error:", error);
       if (error.response) {
         setError(error.response.data.error || "Invalid credentials");

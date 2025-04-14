@@ -33,14 +33,14 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Input validation
+    /*************************CHECK USER INPUT************************/
     if (isFirstNameInvalid) {
-      alert("First Name must not contain numbers.");
+      alert("First Name cannot contain numbers.");
       return;
     }
 
     if (isLastNameInvalid) {
-      alert("Last Name must not contain numbers.");
+      alert("Last Name cannot contain numbers.");
       return;
     }
 
@@ -60,12 +60,12 @@ const Register = () => {
     }
 
     if (isUsernameInvalid) {
-      alert("Username must not contain spaces.");
+      alert("Username cannot contain spaces.");
       return;
     }
 
     if (isUserNameFirstCharInvalid) {
-      alert("Username must not start with a number or special character.");
+      alert("Username cannot start with a number or special character.");
       return;
     }
 
@@ -92,15 +92,14 @@ const Register = () => {
 
     try {
       const response = await registerUser(formData);
-      // With axios, successful responses come here directly
       alert("Registration successful");
       
-      // Update state with new user data
+      /*************UPDATE GLOBAL STATE***********/
       setUserProfile(response.data.user);
       setLogStatus(true);
       localStorage.setItem("userProfile", JSON.stringify(response.data.user));
       
-      // Clear form fields
+      /*************RESET FORM FIELDS***********/
       setFirstName("");
       setLastName("");
       setId("");

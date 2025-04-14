@@ -19,7 +19,6 @@ function App() {
     const storedUser = localStorage.getItem('user');
     return storedUser ? JSON.parse(storedUser) : null;
   });
-  
   return (
     <DataContext.Provider value={{user, setUser, logStatus, setLogStatus, userProfile, setUserProfile }}>
       <Router>
@@ -38,7 +37,4 @@ function App() {
     </DataContext.Provider>
   );
 }
-
-
-
 export default App;
